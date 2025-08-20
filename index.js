@@ -134,8 +134,11 @@ if (refId && refId !== userId.toString()) {
 - Tasks completed: Yes  
 - Referrals: ${user.referrals || 0}  
 - Total earned: $${(user.earned || 0).toFixed(2)}  
+
 - Referral link:  
-\`https://t.me/${ctx.botInfo.username}?start=${userId}\``
+\`https://t.me/${ctx.botInfo.username}?start=${userId}\`
+
+  Keep sharing your link to earn more!`
   );
 });
 
@@ -190,8 +193,11 @@ bot.command("stats", async (ctx) => {
 - Tasks completed: Yes  
 - Referrals: ${user.referrals || 0}  
 - Total earned: $${(user.earned || 0).toFixed(2)}  
+
 - Referral link:  
-\`https://t.me/${ctx.botInfo.username}?start=${userId}\``
+\`https://t.me/${ctx.botInfo.username}?start=${userId}\`
+
+  Keep sharing your link to earn more!`
   );
 });
 // ========== Verify Telegram Tasks ==========
