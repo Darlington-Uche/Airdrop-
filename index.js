@@ -31,7 +31,6 @@ const webhookUrl = process.env.WEBHOOK_URL;
 bot.telegram.setWebhook(webhookUrl);
 
 // Example commands
-bot.start((ctx) => ctx.reply("Bot started via webhook! 🚀"));
 bot.command("ping", (ctx) => ctx.reply("pong"));
 
 // Start Express server
