@@ -37,12 +37,12 @@ async function saveUser(userId, data) {
 async function checkTelegramTasks(userId, bot) {
   try {
     const groupCheck = await bot.telegram.getChatMember(process.env.GROUP_ID, userId);
-    const channelCheck = await bot.telegram.getChatMember(process.env.CHANNEL_ID, userId);
+    const channelcheck = await bot.telegram.getChatMember(process.env.CHANNEL_ID, userId);
 
     const groupOk = ["member", "administrator", "creator"].includes(groupCheck.status);
-    const channelOk = ["member", "administrator", "creator"].includes(channelCheck.status);
+    
 
-    return groupOk && channelOk;
+    return groupOk;
   } catch (e) {
     return false;
   }
