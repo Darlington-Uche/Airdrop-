@@ -91,7 +91,7 @@ if (refId && refId !== userId.toString()) {
     await saveUser(refId, {  
       ...refUser,  
       referrals: (refUser.referrals || 0) + 1,  
-      earned: (refUser.earned || 0) + 0.5, // reward for referral  
+      earned: (refUser.earned || 0) + 0.1, // reward for referral  
     });  
   }  
 }  
