@@ -20,6 +20,25 @@ const db = admin.firestore();
 // 🤖 Telegram Bot Setup
 // ==========================
 const bot = new Telegraf(process.env.BOT_TOKEN);
+const express = require("express");
+const app = express();
+
+// Webhook endpoint
+app.use(bot.webhookCallback("/webhook"));
+
+// Set webhook URL 
+const webhookUrl = process.env.WEBHOOK_URL;
+bot.telegram.setWebhook(webhookUrl);
+
+// Example commands
+bot.start((ctx) => ctx.reply("Bot started via webhook! 🚀"));
+bot.command("ping", (ctx) => ctx.reply("pong"));
+
+// Start Express server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Bot is running on webhook mode at port ${PORT}`);
+});
 
 // ========== Firestore Helpers ==========
 async function getUser(userId) {
@@ -358,5 +377,4 @@ bot.action("admin_usernames", async (ctx) => {
 // ==========================
 // 🚀 Launch Bot
 // ==========================
-bot.launch();
 console.log("🚀 Airdrop bot is running...");
