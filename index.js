@@ -131,7 +131,7 @@ if (refId && refId !== userId.toString()) {
   await ctx.replyWithMarkdown(
     `*Your current stats:*  
 
-- Tasks completed: Yes  
+- Tasks completed: ✅
 - Referrals: ${user.referrals || 0}  
 - Total earned: $${(user.earned || 0).toFixed(2)}  
 
@@ -190,7 +190,7 @@ bot.command("stats", async (ctx) => {
   await ctx.replyWithMarkdown(
     `*Your current stats:*  
 
-- Tasks completed: Yes  
+- Tasks completed: ✅
 - Referrals: ${user.referrals || 0}  
 - Total earned: $${(user.earned || 0).toFixed(2)}  
 
@@ -261,9 +261,9 @@ bot.on("text", async (ctx) => {
 
     return ctx.replyWithMarkdown(
       `Thank you! Your information has been recorded.\n
-Now you can start inviting friends and earn $0.10 per valid referral!\n\n
-Your referral link:\n
-\`https://t.me/${ctx.botInfo.username}?start=${userId}\`\n\n
+Now you can start inviting friends and earn $0.10 per valid referral!\n
+Your referral link:
+\`https://t.me/${ctx.botInfo.username}?start=${userId}\`\n
 
 You can check your stats anytime using /stats\n
 Rewards will be distributed after the campaign ends (TBA).`
