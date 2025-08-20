@@ -65,6 +65,29 @@ async function checkTelegramTasks(userId, bot) {
     return false;
   }
 }
+
+const ADMIN_IDS = process.env.ADMIN_IDS.split(",").map(id => id.trim());
+
+// 🔒 Check if user is admin
+function isAdmin(ctx) {
+  return ADMIN_IDS.includes(ctx.from.id.toString());
+}
+
+
+// 🏠 Admin dashboard entry
+bot.command("admin", async (ctx) => {
+  if (!isAdmin(ctx)) return ctx.reply("🚫 You are not authorized.");
+  
+  await ctx.reply("📊 Admin Dashboard", Markup.inlineKeyboard([
+    [Markup.button.callback("👥 View All Users", "admin_users")],
+    [Markup.button.callback("📂 Download Users (CSV)", "admin_download_csv")],
+    [Markup.button.callback("📂 Download Users (JSON)", "admin_download_json")],
+    [Markup.button.callback("🔢 Total Users", "admin_total")],
+    [Markup.button.callback("🏆 Referral Leaderboard", "admin_leaderboard")],
+    [Markup.button.callback("👛 Wallets Only", "admin_wallets")],
+    [Markup.button.callback("🐦 X Usernames Only", "admin_usernames")],
+  ]));
+});
 // ========== /start Command ==========
 bot.start(async (ctx) => {
   const userId = ctx.from.id;
@@ -210,27 +233,8 @@ bot.on("text", async (ctx) => {
   }
 });
 
-const ADMIN_IDS = process.env.ADMIN_IDS.split(",").map(id => id.trim());
 
-// 🔒 Check if user is admin
-function isAdmin(ctx) {
-  return ADMIN_IDS.includes(ctx.from.id.toString());
-}
 
-// 🏠 Admin dashboard entry
-bot.command("admin", async (ctx) => {
-  if (!isAdmin(ctx)) return ctx.reply("🚫 You are not authorized.");
-  
-  await ctx.reply("📊 Admin Dashboard", Markup.inlineKeyboard([
-    [Markup.button.callback("👥 View All Users", "admin_users")],
-    [Markup.button.callback("📂 Download Users (CSV)", "admin_download_csv")],
-    [Markup.button.callback("📂 Download Users (JSON)", "admin_download_json")],
-    [Markup.button.callback("🔢 Total Users", "admin_total")],
-    [Markup.button.callback("🏆 Referral Leaderboard", "admin_leaderboard")],
-    [Markup.button.callback("👛 Wallets Only", "admin_wallets")],
-    [Markup.button.callback("🐦 X Usernames Only", "admin_usernames")],
-  ]));
-});
 // 👥 View all users
 bot.action("admin_users", async (ctx) => {
   if (!isAdmin(ctx)) return;
