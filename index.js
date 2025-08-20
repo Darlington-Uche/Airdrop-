@@ -129,13 +129,12 @@ if (refId && refId !== userId.toString()) {
 
   // If user exists and tasks completed → show stats
   await ctx.replyWithMarkdown(
-    `📊 *Your current stats:*  
+    `*Your current stats:*  
 
-✅ Tasks completed: Yes  
-👥 Referrals: ${user.referrals || 0}  
-💰 Total earned: $${(user.earned || 0).toFixed(2)}  
-
-🔗 Referral link:  
+- Tasks completed: Yes  
+- Referrals: ${user.referrals || 0}  
+- Total earned: $${(user.earned || 0).toFixed(2)}  
+- Referral link:  
 \`https://t.me/${ctx.botInfo.username}?start=${userId}\``
   );
 });
@@ -159,7 +158,42 @@ Once you're done, click the button below to continue.`,
     }
   );
 }
+// ========== /jon Command ==========
+bot.command("stats", async (ctx) => {
+  const userId = ctx.from.id;
 
+  let user = await getUser(userId);
+
+  if (!user) {
+    // Register new user (no referral logic here)
+    await saveUser(userId, {
+      tasksCompleted: false,
+      referrals: 0,
+      earned: 0,
+      joinedAt: new Date().toISOString(),
+      step: "start"
+    });
+
+    // Show tasks (first time)
+    return sendTasksMessage(ctx);
+  }
+
+  // If user exists but hasn’t completed tasks → show tasks again
+  if (!user.tasksCompleted) {
+    return sendTasksMessage(ctx);
+  }
+
+  // If user exists and tasks completed → show stats
+  await ctx.replyWithMarkdown(
+    `*Your current stats:*  
+
+- Tasks completed: Yes  
+- Referrals: ${user.referrals || 0}  
+- Total earned: $${(user.earned || 0).toFixed(2)}  
+- Referral link:  
+\`https://t.me/${ctx.botInfo.username}?start=${userId}\``
+  );
+});
 // ========== Verify Telegram Tasks ==========
 bot.action("completed_tasks", async (ctx) => {
   const userId = ctx.from.id;
@@ -175,7 +209,7 @@ bot.action("completed_tasks", async (ctx) => {
     await saveUser(userId, { step: "twitter" });
 
     await ctx.editMessageText(
-      "✅ Telegram tasks verified!\n\nNow please send me your **Twitter (X) username**:",
+      "Great! Now please submit your details so we can verify:\nYour Twitter username **(e.g., @yourname)**:",
       { parse_mode: "Markdown" }
     );
   }
@@ -199,7 +233,7 @@ bot.on("text", async (ctx) => {
 
     await saveUser(userId, { twitter: ctx.message.text, step: "wallet" });
 
-    return ctx.reply("👍 Twitter saved!\n\nNow please send me your **Base wallet address**:");
+    return ctx.reply("Great! Now please submit your details so we can verify:\nYour Base wallet address **(e.g., 0xYourBaseWalletAddress)**");
   }
 
   // Step 2: Wallet address
@@ -220,15 +254,13 @@ bot.on("text", async (ctx) => {
     });
 
     return ctx.replyWithMarkdown(
-      `🎉 All tasks completed!  
+      `Thank you! Your information has been recorded.\n
+Now you can start inviting friends and earn $0.10 per valid referral!\n\n
+Your referral link:\n
+\`https://t.me/${ctx.botInfo.username}?start=${userId}\`\n\n
 
-📊 *Your Stats:*  
-✅ Tasks completed: Yes  
-👥 Referrals: ${user.referrals || 0}  
-💰 Total earned: $${((user.earned || 0) + 1).toFixed(2)}  
-
-🔗 Your referral link:  
-\`https://t.me/${ctx.botInfo.username}?start=${userId}\``
+You can check your stats anytime using /stats\n
+Rewards will be distributed after the campaign ends (TBA).`
     );
   }
 });
