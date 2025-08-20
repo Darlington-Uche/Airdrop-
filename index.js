@@ -123,10 +123,10 @@ async function sendTasksMessage(ctx) {
   await ctx.reply(
     `👋 Hello <b>${ctx.from.first_name}</b>! Let's start your journey to earn free <b>Godyence</b>.\n\n
 Please complete the following mandatory tasks to receive your $1 reward:\n\n
-1️⃣ Join our Telegram Group – <a href="https://t.me/Godyence">https://t.me/Godyence</a>\n
-2️⃣ Join Telegram Channel – <a href="https://t.me/Godyence_Announcement">https://t.me/Godyence_Announcement</a>\n
-3️⃣ Follow us on Twitter – <a href="https://twitter.com/godyence">https://twitter.com/godyence</a>\n
-4️⃣ Follow our CEO on Twitter – <a href="https://twitter.com/alieareza">https://twitter.com/alieareza</a>\n\n
+1️⃣ <a href="https://t.me/Godyence">Join our Telegram Group</a>\n
+2️⃣ <a href="https://t.me/Godyence_Announcement">Join Telegram Channel</a>\n
+3️⃣ <a href="https://twitter.com/godyence">Follow us on Twitter</a>\n
+4️⃣ <a href="https://twitter.com/alieareza">Follow our CEO on Twitter</a>\n\n
 Once you're done, click the button below to continue.`,
     {
       parse_mode: "HTML",
