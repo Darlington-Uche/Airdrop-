@@ -265,7 +265,8 @@ Now you can start inviting friends and earn $0.10 per valid referral!\n
 Your referral link:
 \`https://t.me/${ctx.botInfo.username}?start=${userId}\`\n
 
-You can check your stats anytime using /stats\n
+You can check your stats anytime using  
+/stats\n
 Rewards will be distributed after the campaign ends (TBA).`
     );
   }
