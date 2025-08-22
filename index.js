@@ -415,6 +415,10 @@ bot.action("admin_usernames", async (ctx) => {
     filename: "usernames.txt"
   });
 });
+// ✅ Health check endpoint
+app.get("/health", (req, res) => {
+  res.status(200).json({ status: "ok", message: "Bot is healthy 🚀" });
+});
 
 // ==========================
 // 🚀 Launch Bot
