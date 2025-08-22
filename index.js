@@ -239,7 +239,7 @@ bot.on("text", async (ctx) => {
 
     await saveUser(userId, { twitter: ctx.message.text, step: "wallet" });
 
-    return ctx.reply("Great! Now please submit your details so we can verify:\nYour Base wallet address **(e.g., 0xYourBaseWalletAddress)**");
+    return ctx.reply("Great! Now please submit your details so we can verify:\nYour Base wallet address (e.g., 0xYourBaseWalletAddress)");
   }
 
   // Step 2: Wallet address
